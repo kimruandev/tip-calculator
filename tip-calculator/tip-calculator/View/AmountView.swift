@@ -6,10 +6,53 @@
 //
 
 import UIKit
+import SnapKit
 
 class AmountView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    private let title: String
+    private let textAlignment: NSTextAlignment
+    
+    private lazy var titleLabel: UILabel = {
+        LabelFactory.build(
+            text: title,
+            font: ThemeFont.regular(ofSize: 18),
+            textColor: ThemeColor.text,
+            textAlignment: textAlignment
+        )
+    }()
+    
+    private lazy var amoutLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = textAlignment
+        label.textColor = ThemeColor.primary
+        let text = NSMutableAttributedString(
+            string: "$0",
+            attributes: [
+                .font: ThemeFont.bold(ofSize: 24)
+            ])
+        text.addAttributes([
+            .font: ThemeFont.bold(ofSize: 16)
+        ], range: NSMakeRange(0, 1))
+        label.attributedText = text
+        
+        return label
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            titleLabel,
+            amoutLabel
+        ])
+        stackView.axis = .vertical
+        
+        return stackView
+    }()
+    
+    init(tittle: String, textAlignment: NSTextAlignment) {
+        self.title = tittle
+        self.textAlignment = textAlignment
+        super.init(frame: .zero)
         layout()
     }
     
@@ -18,6 +61,10 @@ class AmountView: UIView {
     }
     
     private func layout() {
-        backgroundColor = .red
+        addSubview(stackView)
+        
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
