@@ -14,7 +14,8 @@ class BillInputView: UIView {
         let view = HeaderView()
         view.configure(
             topText: "Enter",
-            bottomText: "your bill")
+            bottomText: "your bill"
+        )
         
         return view
     }()
