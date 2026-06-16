@@ -7,6 +7,8 @@
 
 import SnapKit
 import UIKit
+import Combine
+import CombineCocoa
 
 class BillInputView: UIView {
     
@@ -75,13 +77,27 @@ class BillInputView: UIView {
         return textField
     }()
     
+    private let subject: PassthroughSubject<Double, Never> = .init()
+    var valuePublisher: AnyPublisher<Double, Never> {
+        return subject.eraseToAnyPublisher()
+    }
+    
+    private var cancellables = Set<AnyCancellable>()
+    
     init() {
         super.init(frame: .zero)
         layout()
+        observe()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func observe() {
+        textField.textPublisher.sink { [weak self] text in
+            self?.subject.send(text?.doubleValue ?? 0)
+        }.store(in: &cancellables)
     }
     
     private func layout() {
