@@ -22,6 +22,11 @@ class CalculatorVM {
     private var cancellables = Set<AnyCancellable>()
     
     func transform(input: Input) -> Output {
+        
+        input.tipPublisher.sink { tip in
+            print("The tip: \(tip)")
+        }.store(in: &cancellables)
+        
         let result = Result(
             amountPerPerson: 500.0,
             totalBill: 1000.0,
