@@ -45,6 +45,13 @@
 			);
 			target = D1CFD2D62FDDBDC2004C3F4A /* tip-calculator */;
 		};
+		D1CFD4262FE988AF004C3F4A /* Exceptions for "tip-calculator" folder in "tip-calculatorUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				model/ScreenIdentifier.swift,
+			);
+			target = D1CFD2F62FDDBDC4004C3F4A /* tip-calculatorUITests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +59,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				D1CFD2FF2FDDBDC4004C3F4A /* Exceptions for "tip-calculator" folder in "tip-calculator" target */,
+				D1CFD4262FE988AF004C3F4A /* Exceptions for "tip-calculator" folder in "tip-calculatorUITests" target */,
 			);
 			path = "tip-calculator";
 			sourceTree = "<group>";
