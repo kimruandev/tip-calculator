@@ -77,9 +77,9 @@ class BillInputView: UIView {
         return textField
     }()
     
-    private let subject: PassthroughSubject<Double, Never> = .init()
+    private let billSubject: PassthroughSubject<Double, Never> = .init()
     var valuePublisher: AnyPublisher<Double, Never> {
-        return subject.eraseToAnyPublisher()
+        return billSubject.eraseToAnyPublisher()
     }
     
     private var cancellables = Set<AnyCancellable>()
@@ -94,9 +94,14 @@ class BillInputView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func reset() {
+        textField.text = nil
+        billSubject.send(0)
+    }
+    
     private func observe() {
         textField.textPublisher.sink { [weak self] text in
-            self?.subject.send(text?.doubleValue ?? 0)
+            self?.billSubject.send(text?.doubleValue ?? 0)
         }.store(in: &cancellables)
     }
     
